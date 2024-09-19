@@ -548,7 +548,6 @@ struct sdhci_msm_host {
 	bool skip_bus_bw_voting;
 	struct sdhci_msm_bus_vote_data *bus_vote_data;
 	struct delayed_work bus_vote_work;
-	struct delayed_work clk_gating_work;
 	struct delayed_work sdcard_hotplut_work;
 	struct workqueue_struct *workq;	/* QoS work queue */
 	struct sdhci_msm_qos_req *sdhci_qos;
@@ -5274,13 +5273,7 @@ static int sdhci_msm_probe(struct platform_device *pdev)
 	if (ret)
 		goto pltfm_free;
 
-<<<<<<< HEAD
-=======
-	INIT_DELAYED_WORK(&msm_host->clk_gating_work,
-			sdhci_msm_clkgate_bus_delayed_work);
 	INIT_DELAYED_WORK(&msm_host->sdcard_hotplut_work, moto_sdcard_event_work);
-
->>>>>>> e2eaf0e25da9 (mmc: when formatting 1tb sd card the machine maybe crash.)
 	/* Setup regulators */
 	ret = sdhci_msm_vreg_init(&pdev->dev, msm_host, true);
 	if (ret) {
